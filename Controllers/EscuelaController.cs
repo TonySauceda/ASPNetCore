@@ -7,7 +7,8 @@ namespace ASPNetCore.Controllers
     {
         public IActionResult Index()
         {
-            var escuela = new EscuelaModel("Platzi Academy", 2014);
+            var escuela = new EscuelaModel("Platzi Academy", 2014, Enums.TipoEscuelaEnum.Primaria, "México", "Mazatlán");
+            escuela.Direccion = "Marina Mazatlán 123";
 
             ViewBag.CosaDinamica = "La Monja";
 

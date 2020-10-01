@@ -4,8 +4,12 @@
 }
 
 <h1>Escuela</h1>
-<h2>@Model.Nombre</h2>
+<p><strong>Id:</strong>&nbsp;@Model.Id</p>
+<p><strong>Nombre:</strong>&nbsp;@Model.Nombre</p>
+<address>
+    <p><strong>Dirección:</strong>&nbsp;@Model.Direccion</p>
+    <p><strong>País:</strong>&nbsp;@Model.Pais</p>
+    <p><strong>Ciudad:</strong>&nbsp;@Model.Ciudad</p>
+</address>
 <p><strong>Año fundación:</strong>&nbsp;@Model.AñoDeCreación</p>
-
-<p>@ViewBag.CosaDinamica</p>
-<p>@ViewData["CosaDinamica"]</p>
+<p><strong>Tipo escuela:</strong>&nbsp;@Model.TipoEscuela</p>
