@@ -11,6 +11,5 @@ namespace ASPNetCore.Models
         public TipoCursoEnum TipoCurso { get; set; }
         public List<Asignatura> Asignaturas { get; set; }
         public List<Alumno> Alumnos { get; set; }
-        public string Direccion { get; set; }
     }
 }

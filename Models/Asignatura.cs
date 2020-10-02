@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ASPNetCore.Models
 {
@@ -6,5 +7,6 @@ namespace ASPNetCore.Models
     {
         public Guid CursoId { get; set; }
         public Curso Curso { get; set; }
+        public List<Evaluacion> Evaluaciones { get; set; }
     }
 }
