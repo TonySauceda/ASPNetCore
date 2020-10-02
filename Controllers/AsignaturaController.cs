@@ -1,31 +1,24 @@
 using System.Collections.Generic;
+using System.Linq;
+using ASPNetCore.DbEntities;
 using ASPNetCore.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNetCore.Controllers
 {
-    public class AsignaturaController : Controller
+    public class AsignaturaController : BaseController
     {
+        public AsignaturaController(EscuelaContext context) : base(context) { }
+
         public IActionResult Index()
         {
-            var asignatura = new AsignaturaModel()
-            {
-                Nombre = "Programación"
-            };
+            var asignatura = _context.Asignaturas.FirstOrDefault();
             return View(asignatura);
         }
 
         public IActionResult ListaAsignaturas()
         {
-            var lsAsignaturas = new List<AsignaturaModel>()
-                {
-                    new AsignaturaModel(){ Nombre = "Matemáticas" },
-                    new AsignaturaModel(){ Nombre = "Educación Física" },
-                    new AsignaturaModel(){ Nombre = "Español" },
-                    new AsignaturaModel(){ Nombre = "Ciencias Naturales" },
-                    new AsignaturaModel(){ Nombre = "Programación Básica" },
-                };
-            return View(lsAsignaturas);
+            return View(_context.Asignaturas);
         }
     }
 }

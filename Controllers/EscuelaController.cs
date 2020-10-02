@@ -1,16 +1,19 @@
+using System.Linq;
+using ASPNetCore.DbEntities;
 using ASPNetCore.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNetCore.Controllers
 {
-    public class EscuelaController : Controller
+    public class EscuelaController : BaseController
     {
+        public EscuelaController(EscuelaContext context) : base(context) { }
+
         public IActionResult Index()
         {
-            var escuela = new EscuelaModel("Platzi Academy", 2014, Enums.TipoEscuelaEnum.Primaria, "México", "Mazatlán");
-            escuela.Direccion = "Marina Mazatlán 123";
-
             ViewBag.CosaDinamica = "La Monja";
+
+            var escuela = _context.Escuelas.FirstOrDefault();
 
             return View(escuela);
         }
