@@ -1,0 +1,21 @@
+@model Asignatura
+@{
+    ViewData["Title"] = "Creación de Asignatura";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div asp-validation-summary="All">
+
+</div>
+<form method="POST">
+    <div>
+        <label asp-for="Nombre" class="col-form-label"></label>
+        <input asp-for="Nombre" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="CursoId" class="col-form-label"></label>
+        @Html.DropDownList("CursoId", (IEnumerable<SelectListItem>)ViewBag.Cursos, new { @class = "form-control" })
+    </div>
+
+    <input type="submit" class="btn btn-success mt-2" value="Guardar" />
+</form>

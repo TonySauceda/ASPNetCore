@@ -4,6 +4,7 @@ using System.Linq;
 using ASPNetCore.DbEntities;
 using ASPNetCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ASPNetCore.Controllers
 {
@@ -28,9 +29,87 @@ namespace ASPNetCore.Controllers
             return View("ListaAsignaturas", _context.Asignaturas);
         }
 
-        public IActionResult ListaAsignaturas()
+        public IActionResult Create()
         {
-            return View(_context.Asignaturas);
+            ViewBag.Cursos = _context.Cursos.Select(x => new SelectListItem
+            {
+                Text = x.Nombre,
+                Value = x.Id.ToString()
+            });
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Asignatura asignatura)
+        {
+            if (!ModelState.IsValid)
+                return View(asignatura);
+
+            _context.Asignaturas.Add(asignatura);
+            _context.SaveChanges();
+
+            ViewBag.Mensaje = "Asignatura Creada";
+
+            return View("Index", asignatura);
+        }
+
+        public IActionResult Update(Guid id)
+        {
+            ViewBag.Cursos = _context.Cursos.Select(x => new SelectListItem
+            {
+                Text = x.Nombre,
+                Value = x.Id.ToString()
+            });
+
+            var asignatura = _context.Asignaturas
+                .Where(x =>
+                    x.Id == id)
+                .FirstOrDefault();
+            return View(asignatura);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Asignatura asignatura, Guid id)
+        {
+            if (!ModelState.IsValid)
+                return View(asignatura);
+
+            var asignaturaBd = _context.Asignaturas
+                            .Where(x =>
+                                x.Id == id)
+                            .FirstOrDefault();
+
+            asignaturaBd.Nombre = asignatura.Nombre;
+            asignaturaBd.CursoId = asignatura.CursoId;
+
+            _context.SaveChanges();
+
+            ViewBag.Mensaje = "Asignatura Editada";
+
+            return View("Index", asignaturaBd);
+        }
+        public IActionResult Delete(Guid id)
+        {
+            var asignatura = _context.Asignaturas
+                .Where(x =>
+                    x.Id == id)
+                .FirstOrDefault();
+
+            return View(asignatura);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Asignatura asignatura, Guid id)
+        {
+            var asignaturaBd = _context.Asignaturas
+                            .Where(x =>
+                                x.Id == id)
+                            .FirstOrDefault();
+
+            _context.Asignaturas.Remove(asignaturaBd);
+            _context.SaveChanges();
+
+            return RedirectToAction("", "Asignatura");
         }
     }
 }

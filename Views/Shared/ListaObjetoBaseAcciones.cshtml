@@ -18,7 +18,7 @@
             <td>@item.Nombre</td>
             <td>
                 <a href="@Url.Action("", new { item.Id })" class="btn btn-secondary">Detalle</a>
-                <a href="@Url.Action("Edit", new { item.Id })" class="btn btn-info">Editar</a>
+                <a href="@Url.Action("Update", new { item.Id })" class="btn btn-info">Editar</a>
                 <a href="@Url.Action("Delete", new { item.Id })" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>

@@ -1,0 +1,21 @@
+@model Asignatura
+@{
+    ViewData["Title"] = "Eliminar Asignatura";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div asp-validation-summary="All">
+
+</div>
+<form method="POST">
+    <input asp-for="Id" type="hidden" />
+    <partial name="ObjetoBase" />
+    
+    <div>
+        <strong>¿Esta seguro de eliminar la asignatura?</strong>
+    </div>
+   <div class="mt-2">
+       <input type="submit" class="btn btn-success" value="Aceptar" />
+       <a href="@Url.Action("")" class="btn btn-danger">Cancelar</a>
+   </div>
+</form>

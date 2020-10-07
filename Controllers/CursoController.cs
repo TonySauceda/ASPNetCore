@@ -29,11 +29,6 @@ namespace ASPNetCore.Controllers
             return View("ListaCursos", _context.Cursos);
         }
 
-        public IActionResult ListaCursos()
-        {
-            return View(_context.Cursos);
-        }
-
         public IActionResult Create()
         {
             return View();
@@ -71,13 +66,14 @@ namespace ASPNetCore.Controllers
                             .Where(x =>
                                 x.Id == id)
                             .FirstOrDefault();
-
+                            
+            cursoBd.Nombre = curso.Nombre;
             cursoBd.Dirección = curso.Dirección;
             cursoBd.TipoCurso = curso.TipoCurso;
 
             _context.SaveChanges();
             ViewBag.Mensaje = "Curso Editado";
-            return View("Index", curso);
+            return View("Index", cursoBd);
         }
         public IActionResult Delete(Guid id)
         {
