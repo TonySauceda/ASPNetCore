@@ -1,0 +1,23 @@
+@model Curso
+@{
+    ViewData["Title"] = "Eliminar Curso";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div asp-validation-summary="All">
+
+</div>
+<form method="POST">
+    <input asp-for="Id" type="hidden" />
+    <partial name="ObjetoBase" />
+    <p><strong>Dirección:</strong>&nbsp;@Model.Dirección</p>
+    <p><strong>Tipo Curso:</strong>&nbsp;@Model.TipoCurso</p>
+    
+    <div>
+        <strong>¿Esta seguro de eliminar el curso?</strong>
+    </div>
+   <div class="mt-2">
+       <input type="submit" class="btn btn-success" value="Aceptar" />
+       <a href="@Url.Action("")" class="btn btn-danger">Cancelar</a>
+   </div>
+</form>

@@ -11,11 +11,22 @@ namespace ASPNetCore.Controllers
     {
         public AlumnoController(EscuelaContext context) : base(context) { }
 
-        public IActionResult Index()
+        [Route("Alumno")]
+        [Route("Alumno/{id}")]
+        [Route("Alumno/Index")]
+        [Route("Alumno/Index/{id}")]
+        public IActionResult Index(Guid? id)
         {
-            var alumno = _context.Alumnos.FirstOrDefault();
+            if (id.HasValue)
+            {
+                var alumno = _context.Alumnos
+                .Where(x =>
+                    x.Id == id)
+                .FirstOrDefault();
 
-            return View(alumno);
+                return View(alumno);
+            }
+            return View("ListaAlumnos", _context.Alumnos);
         }
 
         public IActionResult ListaAlumnos()

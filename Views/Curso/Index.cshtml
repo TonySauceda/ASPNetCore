@@ -1,0 +1,14 @@
+@model Curso
+@{
+    ViewData["Title"] = "Información del curso";
+}
+
+<h1>@ViewData["Title"]</h1>
+@if(ViewBag.Mensaje!=null)
+{
+    <h1>@ViewBag.Mensaje</h1>
+}
+
+<partial name="ObjetoBase" />
+<p><strong>Dirección:</strong>&nbsp;@Model.Dirección</p>
+<p><strong>Tipo Curso:</strong>&nbsp;@Model.TipoCurso</p>
