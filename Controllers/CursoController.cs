@@ -68,7 +68,7 @@ namespace ASPNetCore.Controllers
                             .FirstOrDefault();
                             
             cursoBd.Nombre = curso.Nombre;
-            cursoBd.Dirección = curso.Dirección;
+            cursoBd.Direccion = curso.Direccion;
             cursoBd.TipoCurso = curso.TipoCurso;
 
             _context.SaveChanges();

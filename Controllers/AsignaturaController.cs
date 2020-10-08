@@ -43,7 +43,14 @@ namespace ASPNetCore.Controllers
         public IActionResult Create(Asignatura asignatura)
         {
             if (!ModelState.IsValid)
+            {
+                ViewBag.Cursos = _context.Cursos.Select(x => new SelectListItem
+                {
+                    Text = x.Nombre,
+                    Value = x.Id.ToString()
+                });
                 return View(asignatura);
+            }
 
             _context.Asignaturas.Add(asignatura);
             _context.SaveChanges();

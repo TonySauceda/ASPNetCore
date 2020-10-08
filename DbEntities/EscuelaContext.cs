@@ -93,15 +93,15 @@ namespace ASPNetCore.DbEntities
         {
             return new List<Curso>
             {
-                new Curso() { Nombre = "101", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Mañana },
-                new Curso() { Nombre = "201", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Mañana },
-                new Curso() { Nombre = "301", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Mañana },
-                new Curso() { Nombre = "102", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Tarde },
-                new Curso() { Nombre = "202", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Tarde },
-                new Curso() { Nombre = "302", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Tarde },
-                new Curso() { Nombre = "103", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Noche },
-                new Curso() { Nombre = "203", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Noche },
-                new Curso() { Nombre = "303", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Noche },
+                new Curso() { Nombre = "101", Direccion = "Dirección 101", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Mañana },
+                new Curso() { Nombre = "201", Direccion = "Dirección 201", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Mañana },
+                new Curso() { Nombre = "301", Direccion = "Dirección 301", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Mañana },
+                new Curso() { Nombre = "102", Direccion = "Dirección 102", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Tarde },
+                new Curso() { Nombre = "202", Direccion = "Dirección 202", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Tarde },
+                new Curso() { Nombre = "302", Direccion = "Dirección 302", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Tarde },
+                new Curso() { Nombre = "103", Direccion = "Dirección 103", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Noche },
+                new Curso() { Nombre = "203", Direccion = "Dirección 203", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Noche },
+                new Curso() { Nombre = "303", Direccion = "Dirección 303", EscuelaId = escuela.Id, TipoCurso = TipoCursoEnum.Noche },
             };
         }
 

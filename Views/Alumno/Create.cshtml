@@ -4,13 +4,17 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-<div asp-validation-summary="All">
 
 </div>
 <form method="POST">
     <div>
         <label asp-for="Nombre" class="col-form-label"></label>
         <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
     </div>
     <input type="submit" class="btn btn-success mt-2" value="Guardar" />
 </form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
