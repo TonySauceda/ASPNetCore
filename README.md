@@ -1,2 +1,5 @@
-# ASPNetCore
-Curso de ASP.Net Core
+# Curso de ASP NET Core
+
+[Ir al curso](https://platzi.com/clases/aspnet-core/ "Ir al curso")
+
+[Publicado en Azure](https://tonysauceda-aspnetcore-escuela.azurewebsites.net/ "Publicado en Azure")
