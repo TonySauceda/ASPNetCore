@@ -23,6 +23,11 @@ namespace ASPNetCore.DbEntities
         {
             base.OnModelCreating(modelBuilder);
 
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
             var escuela = new Escuela("Platzi Academy", 2014);
             escuela.TipoEscuela = Enums.TipoEscuelaEnum.Secundaria;
             escuela.Ciudad = "Mazatlán";
@@ -126,7 +131,7 @@ namespace ASPNetCore.DbEntities
             var rand = new Random();
             foreach (var curso in cursos)
             {
-                var temp = GenerarAlumnosRandom(curso, rand.Next(5, 25));
+                var temp = GenerarAlumnosRandom(curso, rand.Next(3, 5));
                 resultado.AddRange(temp);
             }
 

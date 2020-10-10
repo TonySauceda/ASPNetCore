@@ -26,7 +26,9 @@ namespace ASPNetCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<EscuelaContext>(options => options.UseInMemoryDatabase("DbTest"));
+            // services.AddDbContext<EscuelaContext>(options => options.UseInMemoryDatabase("DbTest"));
+            string connString = ConfigurationExtensions.GetConnectionString(this.Configuration, "DefaultConnectionString");
+            services.AddDbContext<EscuelaContext>(option => option.UseSqlServer(connString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
