@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 'tonysauceda-aspnetcore-escuela'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_7d57d437dd964bc89eb20b29ceb62214 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_d47f2eee7e4d4ad996ccc9ed2635b6ab }}
         package: ${{env.DOTNET_ROOT}}/myapp 
