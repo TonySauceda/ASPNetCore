@@ -1,7 +1,0 @@
-@model IEnumerable<Alumno>
-@{
-    ViewData["Title"] = "Lista de Alumnos";
-}
-
-<h1>@ViewData["Title"]</h1>
-<partial name="ListaObjetoBaseAcciones" model="@(Model.Cast<ObjetoBase>())"/>

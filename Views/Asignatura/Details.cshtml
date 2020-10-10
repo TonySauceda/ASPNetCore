@@ -1,14 +1,13 @@
-@model ASPNetCore.Models.Alumno
+@model ASPNetCore.Models.Asignatura
 
 @{
-    ViewData["Title"] = "Eliminar Alumno";
+    ViewData["Title"] = "Detalle de la Asignatura";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<h3>¿Esta seguro de eliminar el alumno?</h3>
 <div>
-    <h4>Alumno</h4>
+    <h4>Asignatura</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -22,12 +21,10 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Curso.Direccion)
-        </dd class>
+        </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-secondary">Regresar</a>
-    </form>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Modificar</a> |
+    <a asp-action="Index" class="btn btn-secondary">Regresar</a>
 </div>

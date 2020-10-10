@@ -1,103 +1,161 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using ASPNetCore.DbEntities;
 using ASPNetCore.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNetCore.Controllers
 {
-    public class AlumnoController : BaseController
+    public class AlumnoController : Controller
     {
-        public AlumnoController(EscuelaContext context) : base(context) { }
+        private readonly EscuelaContext _context;
 
-        [Route("Alumno")]
-        [Route("Alumno/{id}")]
-        [Route("Alumno/Index")]
-        [Route("Alumno/Index/{id}")]
-        public IActionResult Index(Guid? id)
+        public AlumnoController(EscuelaContext context)
         {
-            if (id.HasValue)
-            {
-                var alumno = _context.Alumnos
-                .Where(x =>
-                    x.Id == id)
-                .FirstOrDefault();
-
-                return View(alumno);
-            }
-            return View("ListaAlumnos", _context.Alumnos);
+            _context = context;
         }
 
+        // GET: Alumno
+        public async Task<IActionResult> Index()
+        {
+            var escuelaContext = _context.Alumnos.Include(a => a.Curso);
+            return View(await escuelaContext.ToListAsync());
+        }
+
+        // GET: Alumno/Details/5
+        public async Task<IActionResult> Details(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var alumno = await _context.Alumnos
+                .Include(a => a.Curso)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (alumno == null)
+            {
+                return NotFound();
+            }
+
+            return View(alumno);
+        }
+
+        // GET: Alumno/Create
         public IActionResult Create()
         {
+            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Direccion");
             return View();
         }
 
+        // POST: Alumno/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public IActionResult Create(Alumno alumno)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Nombre,CursoId,Id")] Alumno alumno)
         {
-            if (!ModelState.IsValid)
-                return View(alumno);
-
-            _context.Alumnos.Add(alumno);
-            _context.SaveChanges();
-
-            ViewBag.Mensaje = "Alumno Creado";
-
-            return View("Index", alumno);
-        }
-
-        public IActionResult Update(Guid id)
-        {
-            var alumno = _context.Alumnos
-                .Where(x =>
-                    x.Id == id)
-                .FirstOrDefault();
+            if (ModelState.IsValid)
+            {
+                alumno.Id = Guid.NewGuid();
+                _context.Add(alumno);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Direccion", alumno.CursoId);
             return View(alumno);
         }
 
-        [HttpPost]
-        public IActionResult Update(Alumno alumno, Guid id)
+        // GET: Alumno/Edit/5
+        public async Task<IActionResult> Edit(Guid? id)
         {
-            if (!ModelState.IsValid)
-                return View(alumno);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            var alumnoBd = _context.Alumnos
-                            .Where(x =>
-                                x.Id == id)
-                            .FirstOrDefault();
-
-            alumnoBd.Nombre = alumno.Nombre;
-
-            _context.SaveChanges();
-
-            ViewBag.Mensaje = "Alumno Editado";
-            
-            return View("Index", alumnoBd);
+            var alumno = await _context.Alumnos.FindAsync(id);
+            if (alumno == null)
+            {
+                return NotFound();
+            }
+            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Direccion", alumno.CursoId);
+            return View(alumno);
         }
-        public IActionResult Delete(Guid id)
+
+        // POST: Alumno/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, [Bind("Nombre,CursoId,Id")] Alumno alumno)
         {
-            var alumno = _context.Alumnos
-                .Where(x =>
-                    x.Id == id)
-                .FirstOrDefault();
+            if (id != alumno.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(alumno);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!AlumnoExists(alumno.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["CursoId"] = new SelectList(_context.Cursos, "Id", "Direccion", alumno.CursoId);
+            return View(alumno);
+        }
+
+        // GET: Alumno/Delete/5
+        public async Task<IActionResult> Delete(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var alumno = await _context.Alumnos
+                .Include(a => a.Curso)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (alumno == null)
+            {
+                return NotFound();
+            }
 
             return View(alumno);
         }
 
-        [HttpPost]
-        public IActionResult Delete(Alumno alumno, Guid id)
+        // POST: Alumno/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var alumnoBd = _context.Alumnos
-                            .Where(x =>
-                                x.Id == id)
-                            .FirstOrDefault();
+            var alumno = await _context.Alumnos.FindAsync(id);
+            _context.Alumnos.Remove(alumno);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
-            _context.Alumnos.Remove(alumnoBd);
-            _context.SaveChanges();
-
-            return RedirectToAction("", "Alumno");
+        private bool AlumnoExists(Guid id)
+        {
+            return _context.Alumnos.Any(e => e.Id == id);
         }
     }
 }

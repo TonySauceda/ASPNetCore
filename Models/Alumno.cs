@@ -11,6 +11,7 @@ namespace ASPNetCore.Models
         public override string Nombre { get; set; }
 
         [Required(ErrorMessage = "La asignatura requiere estar ligado a un curso.")]
+        [Display(Name = "Curso")]
         public Guid CursoId { get; set; }
         public Curso Curso { get; set; }
         public List<Evaluacion> Evaluaciones { get; set; }

@@ -1,7 +1,7 @@
 @model ASPNetCore.Models.Curso
 
 @{
-    ViewData["Title"] = "Nuevo Curso";
+    ViewData["Title"] = "Modificar Curso";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
@@ -19,7 +19,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="EscuelaId" class="control-label"></label>
-                <select asp-for="EscuelaId" class ="form-control" asp-items="ViewBag.EscuelaId"></select>
+                <select asp-for="EscuelaId" class="form-control" asp-items="ViewBag.EscuelaId"></select>
+                <span asp-validation-for="EscuelaId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TipoCurso" class="control-label"></label>
@@ -31,8 +32,9 @@
                 <input asp-for="Direccion" class="form-control" />
                 <span asp-validation-for="Direccion" class="text-danger"></span>
             </div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
     </div>

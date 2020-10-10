@@ -1,12 +1,41 @@
-@model Alumno
+@model IEnumerable<ASPNetCore.Models.Alumno>
+
 @{
-    ViewData["Title"] = "Información Alumno";
+    ViewData["Title"] = "Lista de Alumnos";
 }
 
 <h1>@ViewData["Title"]</h1>
-@if(ViewBag.Mensaje!=null)
-{
-    <h1>@ViewBag.Mensaje</h1>
-}
 
-<partial name="ObjetoBase" />
+<p>
+    <a asp-action="Create" class="btn btn-success">Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Curso)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Curso.Direccion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Modificar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalle</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
